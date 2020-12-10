@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="angry.mp3" />
+    <None Remove="cheer.mp3" />
+    <None Remove="cheering.mp3" />
+    <None Remove="dicerolling.mp3" />
+    <None Remove="gamestart.mp3" />
+    <None Remove="ladderclimb.mp3" />
+    <None Remove="lose.mp3" />
+    <None Remove="move.mp3" />
+    <None Remove="sixer.mp3" />
+    <None Remove="snakehit.mp3" />
+    <None Remove="start.mp3" />
+    <None Remove="startmusic.mp3" />
+    <None Remove="watersplash.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="angry.mp3" />
+    <EmbeddedResource Include="cheer.mp3" />
+    <EmbeddedResource Include="cheering.mp3" />
+    <EmbeddedResource Include="dicerolling.mp3" />
+    <EmbeddedResource Include="gamestart.mp3" />
+    <EmbeddedResource Include="ladderclimb.mp3" />
+    <EmbeddedResource Include="lose.mp3" />
+    <EmbeddedResource Include="move.mp3" />
+    <EmbeddedResource Include="sixer.mp3" />
+    <EmbeddedResource Include="snakehit.mp3" />
+    <EmbeddedResource Include="start.mp3" />
+    <EmbeddedResource Include="startmusic.mp3" />
+    <EmbeddedResource Include="watersplash.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
+    <PackageReference Include="Sharpnado.MaterialFrame" Version="1.1.1" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\GameRules.xaml.cs">
+      <DependentUpon>GameRules.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="View\Board.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\GameComplete.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\GameMode.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

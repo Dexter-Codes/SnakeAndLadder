@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:SnakeAndLadder.Converter"
+             mc:Ignorable="d"                 
+             x:Class="SnakeAndLadder.View.HomePage"
+             BackgroundImageSource="scenery.png"
+             x:Name="home"
+             BindingContext="{x:Reference Name=home}"
+             >
+    <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+
+                      
+        <Image BackgroundColor="Transparent"  Source="art.png" Margin="-80,10,0,0" Rotation="5"
+               Aspect="Fill" 
+               />
+
+        <ImageButton
+                x:Name="playimage"
+                Source="dice_load.png"
+                BackgroundColor="Transparent"
+            WidthRequest="150"
+            HeightRequest="120"      
+            AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.55,0.47,150,120"
+            Clicked="TapGestureRecognizer_Tapped"/>
+
+
+        <Image Source="babysnake.png"
+               WidthRequest="250"
+               HeightRequest="400"
+               Opacity="1"
+               Margin="-50,0,0,0"
+               InputTransparent="True"
+               AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.05,0.8,250,400"
+                 />
+
+        <Image Source="ladderwood.jpg"
+               BackgroundColor="Transparent"
+               AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9,0.95,300,300"
+               />
+      
+    </AbsoluteLayout>
+      
+
+
+</ContentPage>

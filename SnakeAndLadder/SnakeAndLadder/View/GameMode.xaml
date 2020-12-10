@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:SnakeAndLadder.Converter"
+             xmlns:materialFrame="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+             mc:Ignorable="d"
+             x:Class="SnakeAndLadder.View.GameMode"
+             BackgroundImageSource="scenery.png"
+              x:Name="test"
+              BindingContext="{x:Reference Name=test}">
+    <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+   
+  
+    <ScrollView>
+       
+        <StackLayout >
+
+            <ImageButton Source="back.png" HorizontalOptions="Start" VerticalOptions="Start" Padding="10,10,0,0"  Clicked="backButton_Clicked"
+                     BackgroundColor="Transparent"/>
+        <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        Padding="20, 0, 20, 0"
+        IsVisible="{Binding IsModeSelected}">
+            
+            
+            <Image Source="gamemode.png" Aspect="AspectFit" BackgroundColor="Transparent"/>
+                
+            <materialFrame:MaterialFrame 
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialTheme="AcrylicBlur"
+                    CornerRadius="20"
+                    Margin="0,50,0,0"
+                     HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <StackLayout   VerticalOptions="Center" 
+                    HorizontalOptions="Center"  
+                           Margin="40,20,40,20">
+                        <StackLayout Margin="0,20,0,0">
+                            <ImageButton Source="bot.png" 
+                                         x:Name="bot"
+                                         CornerRadius="20"
+                                         Clicked="bot_Clicked"
+                           BackgroundColor="Transparent"  Margin="0,0,0,0" WidthRequest="150" HeightRequest="100"/>
+                            <Label Text="PLAY vs BOT" TextColor="Black" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="bot_Clicked"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+
+                        <StackLayout Margin="0,20,0,0" >
+                            <ImageButton Source="people.png"
+                                          x:Name="people" CornerRadius="20"
+                                         Clicked="people_Clicked"
+                             BackgroundColor="Transparent"  Margin="0,0,0,0" WidthRequest="150" HeightRequest="100"/>
+
+                            <Label FontSize="25" FontAttributes="Bold" TextColor="Black" Text="MULTIPLAYER" HorizontalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="people_Clicked"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+
+                    </StackLayout>
+                </materialFrame:MaterialFrame>
+             
+        </StackLayout>
+
+            <materialFrame:MaterialFrame 
+                    LightThemeBackgroundColor="#F1F1F1"
+                    MaterialTheme="AcrylicBlur"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                IsVisible="{Binding IsModeSelected, Converter={StaticResource InverseBooleanConverter}}"
+                Margin="0,30,0,0"
+                    >
+
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical" Margin="0,20,0,30"
+                     >
+
+                <Label
+                        Text="{Binding PlayMode}" 
+                    FontSize="30" TextColor="Black" HorizontalOptions="Center" FontAttributes="Bold"/>
+                <Label
+                        HorizontalOptions="Center"
+                        Text="{Binding PlayConditions}" 
+                    FontSize="18" TextColor="Black" Margin="0,0,0,20" FontAttributes="Bold"/>
+
+             
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,10,0,0">
+                        <StackLayout Orientation="Horizontal" Margin="0,10,0,10">
+                            <CheckBox IsChecked="{Binding Player1on}" Color="#E74C3C" Scale="2.5" />
+                            <Entry Text="{Binding Player1Name}" Margin="30,0,0,0" Placeholder="Player1" IsVisible="{Binding EntryOn}"  WidthRequest="150" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"  Margin="0,15,0,10">
+                            <CheckBox IsChecked="{Binding Player2on}"   Color="#9B59B6" Scale="2.5"  />
+                            <Entry Text="{Binding Player2Name}" Margin="30,0,0,0" Placeholder="Player2" IsVisible="{Binding EntryOn}" WidthRequest="150" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Margin="0,15,0,10">
+                            <CheckBox IsChecked="{Binding Player3on}"   Color="#FBFF0D" Scale="2.5"  />
+                            <Entry Text="{Binding Player3Name}" Margin="30,0,0,0" Placeholder="Player3" IsVisible="{Binding EntryOn}" WidthRequest="150" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Margin="0,15,0,10">
+                            <CheckBox IsChecked="{Binding Player4on}"   Color="#2CFF0E"  Scale="2.5"  />
+                            <Entry Text="{Binding Player4Name}"  Margin="30,0,0,0" Placeholder="Player4" IsVisible="{Binding EntryOn}" WidthRequest="150" />
+                        </StackLayout>
+                    </StackLayout>
+                              
+        </StackLayout>
+            </materialFrame:MaterialFrame>
+            <ImageButton  VerticalOptions="Center" HorizontalOptions="Center" 
+                          x:Name="play_btn"
+                   Source="{Binding PlayImage}"
+                          IsVisible="{Binding IsModeSelected, Converter={StaticResource InverseBooleanConverter}}"
+                    WidthRequest="350"
+                    BackgroundColor="Transparent"
+                    Clicked="play_btn_Clicked"      
+                    Margin="0,0,0,0"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

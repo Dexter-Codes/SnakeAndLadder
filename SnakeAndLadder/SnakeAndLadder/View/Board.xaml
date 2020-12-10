@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:converters="clr-namespace:SnakeAndLadder.Converter"
+             xmlns:materialFrame="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+             mc:Ignorable="d"
+             x:Name="gameboard"
+             x:Class="SnakeAndLadder.View.Board"
+             BackgroundImageSource="{Binding PageImage}"
+             BindingContext="{x:Reference Name=gameboard}"
+             >
+    <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+
+            <Image Source="{Binding DiceNumber}" 
+                    AbsoluteLayout.LayoutBounds="1,1,1,1" 
+                   AbsoluteLayout.LayoutFlags="All"
+                       InputTransparent="False"
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center" 
+                       Opacity="0.9"
+                       IsVisible="{Binding IsDiceAvailable}"
+                       IsAnimationPlaying="{Binding PlayGif}"
+                       />
+
+                <ImageButton Source="{Binding Mute}"  BackgroundColor="Transparent" Padding="0" Opacity="0.8" Clicked="MuteBtn_Clicked" 
+                             AbsoluteLayout.LayoutBounds="0.65,0.005,50,50" AbsoluteLayout.LayoutFlags="PositionProportional" 
+                             IsVisible="{Binding IsDiceAvailable, Converter={StaticResource InverseBooleanConverter}}"/>
+                <ImageButton Source="info.png"  Clicked="InfoBtn_Tapped" Padding="0,0,0,0" Opacity="0.8"
+                              BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0.9,0.005,50,50" AbsoluteLayout.LayoutFlags="PositionProportional"
+                             IsVisible="{Binding IsDiceAvailable, Converter={StaticResource InverseBooleanConverter}}"/>
+
+
+            <Grid x:Name="BoardGrid"
+              Margin="10,55,10,0"
+              AbsoluteLayout.LayoutBounds="1,1, 1, 1"
+              AbsoluteLayout.LayoutFlags="All"
+              RowSpacing="0"
+              IsVisible="{Binding IsDiceAvailable, Converter={StaticResource InverseBooleanConverter}}"
+              ColumnSpacing="0"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="90"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <BoxView  AbsoluteLayout.LayoutBounds="1,1, 1, 1" 
+              AbsoluteLayout.LayoutFlags="All" Color="Black"  Grid.Row="0" Grid.Column="0" CornerRadius="20" Grid.ColumnSpan="10" Grid.RowSpan="10" Opacity="0.8"/>
+                <BoxView  AbsoluteLayout.LayoutBounds="1,1, 1, 1" 
+              AbsoluteLayout.LayoutFlags="All" Color="AliceBlue"  Grid.Row="10" Grid.Column="0" Margin="0,10,0,0" CornerRadius="20,20,0,0" Grid.ColumnSpan="10" Grid.RowSpan="3" Opacity="0.7"/>
+
+
+
+
+                <Image Source="s4.png" Margin="-8,0,0,0"
+                Grid.Row="0" Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="3" BackgroundColor="Transparent"  Aspect="Fill" InputTransparent="True"/>
+
+                <Image Source="ladder1.png"                     
+                Grid.Row="3" Grid.Column="4" Grid.RowSpan="3" Aspect="Fill" InputTransparent="True"/>
+                <Image Source="s2.png"            
+                Grid.Row="4" Grid.Column="8" Grid.RowSpan="5" Aspect="AspectFill" Grid.ColumnSpan="2"  InputTransparent="True"/>
+                <Image Source="ladder1.png" 
+                Grid.Row="1" Grid.Column="6" Grid.RowSpan="2" Aspect="Fill" InputTransparent="True"/>
+                <Image Source="ladder1.png"
+                Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" Aspect="Fill" InputTransparent="True"/>
+                <Image Source="s1.png"           
+                Grid.Row="2" Grid.Column="5" Grid.RowSpan="5" Grid.ColumnSpan="2" Aspect="AspectFill" InputTransparent="True"/>
+                <Image Source="ladder1.png" 
+                Grid.Row="0" Grid.Column="8" Grid.RowSpan="4" Aspect="Fill" InputTransparent="True"/>
+                <Image Source="s3.png"              
+                Grid.Row="6" Grid.Column="4" Grid.RowSpan="4" Grid.ColumnSpan="3" Aspect="AspectFill" InputTransparent="True"/>
+
+
+
+                <Image Source="{Binding Pin1}" Grid.Row="{Binding RowNumber1}" Grid.Column="{Binding ColumnNumber1}" 
+                       IsVisible="{Binding IsPin1}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"  
+                        Aspect="AspectFill" WidthRequest="50" HeightRequest="50"
+                       IsAnimationPlaying="{Binding AnimationCheck1}"
+                       IsEnabled="{Binding AnimationCheck1}"
+                       InputTransparent="False"
+                       x:Name="drag1"
+                       AutomationId="0"
+                       >
+                    <Image.GestureRecognizers >
+                        <TapGestureRecognizer   Tapped="Pin_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="{Binding Pin2}" Grid.Row="{Binding RowNumber2}" Grid.Column="{Binding ColumnNumber2}" 
+                       IsVisible="{Binding IsPin2}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"  
+                       Aspect="AspectFill" WidthRequest="49.5" HeightRequest="49.5"
+                       IsAnimationPlaying="{Binding AnimationCheck2}"
+                       IsEnabled="{Binding AnimationCheck2}"
+                       InputTransparent="False"
+                       x:Name="drag2"
+                       AutomationId="1"
+                        >
+                    <Image.GestureRecognizers >
+                        <TapGestureRecognizer  Tapped="Pin_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="{Binding Pin3}" Grid.Row="{Binding RowNumber3}" Grid.Column="{Binding ColumnNumber3}" 
+                       IsVisible="{Binding IsPin3}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"  
+                       Aspect="AspectFill" WidthRequest="48" HeightRequest="48"
+                       IsAnimationPlaying="{Binding AnimationCheck3}"
+                       IsEnabled="{Binding AnimationCheck3}"
+                       InputTransparent="False"
+                        x:Name="drag3"
+                       AutomationId="2"
+                        >
+                    <Image.GestureRecognizers >
+                        <TapGestureRecognizer  Tapped="Pin_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+
+                <Image Source="{Binding Pin4}" Grid.Row="{Binding RowNumber4}" Grid.Column="{Binding ColumnNumber4}" 
+                       IsVisible="{Binding IsPin4}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"  
+                       Aspect="AspectFill" WidthRequest="48.5" HeightRequest="48.5"
+                       IsAnimationPlaying="{Binding AnimationCheck4}"
+                       IsEnabled="{Binding AnimationCheck4}"
+                       InputTransparent="False"
+                        x:Name="drag4"
+                       AutomationId="3">
+                    <Image.GestureRecognizers >
+                        <TapGestureRecognizer  Tapped="Pin_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+
+                <StackLayout Grid.Row="10" 
+                             Grid.Column="1"
+                             Margin="-20,20,10,0"
+                             IsVisible="{Binding Player1Layout}"                             
+                             BackgroundColor="{Binding Player1Background}"
+                             Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <BoxView  WidthRequest="25"  Margin="4,4,2,4" CornerRadius="25" HeightRequest="25" Color="{Binding Player1Color}"/>
+                    <Label Text="{Binding Player1}" Margin="2,4,2,4" LineBreakMode="WordWrap"  FontSize="18" FontAttributes="Bold" TextColor="{Binding Player1TextColor}"/>
+                    <Label Text="{Binding Player1Points}" Margin="2,4,2,4" TextColor="{Binding Player1TextColor}" HorizontalOptions="End" FontAttributes="Bold" FontSize="18"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="10" Grid.ColumnSpan="4"
+                             Grid.Column="6"
+                              Margin="-10,20,20,0"
+                             IsVisible="{Binding Player2Layout}"
+                             BackgroundColor="{Binding Player2Background}"
+                             Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <BoxView  WidthRequest="25" Margin="4,4,2,4"  CornerRadius="25" HeightRequest="25" Color="{Binding Player2Color}"/>
+                    <Label Text="{Binding Player2}" Margin="2,4,2,4" LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="{Binding Player2TextColor}" FontSize="18"/>
+                    <Label Text="{Binding Player2Points}" Margin="2,4,2,4" TextColor="{Binding Player2TextColor}" HorizontalOptions="End" FontAttributes="Bold" FontSize="18"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="11" 
+                             Grid.Column="1"
+                             Margin="-20,20,0,0"
+                             Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                             IsVisible="{Binding Player3Layout}"
+                             BackgroundColor="{Binding Player3Background}">
+                    <BoxView  WidthRequest="25" Margin="4,4,2,4" CornerRadius="25" HeightRequest="25" Color="{Binding Player3Color}"/>
+                    <Label Text="{Binding Player3}" Margin="2,4,2,4"  LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="{Binding Player3TextColor}" FontSize="18"/>
+                    <Label Text="{Binding Player3Points}" Margin="2,4,2,4" TextColor="{Binding Player3TextColor}" HorizontalOptions="End" FontAttributes="Bold" FontSize="18"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="11" Grid.ColumnSpan="4"
+                             Grid.Column="6"
+                              Margin="-10,20,20,0"
+                             Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                             IsVisible="{Binding Player4Layout}"
+                             BackgroundColor="{Binding Player4Background}">
+                    <BoxView  WidthRequest="25" HeightRequest="25" Margin="4,4,2,4" CornerRadius="25"
+                               Color="{Binding Player4Color}"/>
+                    <Label Text="{Binding Player4}" Margin="2,4,2,4"  LineBreakMode="WordWrap" FontAttributes="Bold" TextColor="{Binding Player4TextColor}" FontSize="18"/>
+                    <Label Text="{Binding Player4Points}" Margin="2,4,2,4"  TextColor="{Binding Player4TextColor}" HorizontalOptions="End" FontAttributes="Bold" FontSize="18"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="12"   Grid.ColumnSpan="10">
+                    <Image Source="{Binding RollDice}"
+                             WidthRequest="100" HeightRequest="95"  
+                           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                              IsEnabled="{Binding EnableButton}"  
+                              x:Name="image1">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer  Tapped="RollDice_Tapped"/>
+                        </Image.GestureRecognizers>
+
+                    </Image>
+                </StackLayout>
+
+                <Image Source="{Binding EventItem}" 
+                    Grid.Row="5"
+                       Grid.Column="3"
+                       Grid.RowSpan="4"
+                       Grid.ColumnSpan="4"
+                       InputTransparent="False"                     
+                       IsVisible="{Binding IsEventItem}"
+                       IsAnimationPlaying="True"
+                       />
+
+            </Grid>
+
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

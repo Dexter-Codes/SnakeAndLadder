@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:converters="clr-namespace:SnakeAndLadder.Converter"
+             mc:Ignorable="d"
+             x:Class="SnakeAndLadder.View.GameComplete"             
+             BackgroundColor="#FFF4F4"
+             x:Name="gamecomp"
+             BindingContext="{x:Reference Name=gamecomp}">
+    <pages:PopupPage.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    
+    <AbsoluteLayout>
+
+        <Image Source="celeb.gif" IsAnimationPlaying="True" IsVisible="True" 
+               AbsoluteLayout.LayoutBounds="1,0.5,1,0.5" AbsoluteLayout.LayoutFlags="All"/>
+
+        <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+
+
+        <Image Source="winnerbackground.gif" BackgroundColor="Transparent" IsAnimationPlaying="True" Aspect="AspectFill" Margin="0,35,0,0" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
+
+        <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        Padding="20, 0, 20, 0"
+            BackgroundColor="Transparent"           
+        Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2">
+
+            <Label Text="{Binding VerdictDescription}" FontSize="35" VerticalOptions="Center" FontAttributes="None"
+        HorizontalOptions="Center"  TextColor="{Binding ResColor}" Margin="0,10,0,10"
+                IsVisible="{Binding GameMode}"/>
+        </StackLayout>
+
+        <ListView ItemsSource="{Binding LeaderBoard}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                  IsVisible="{Binding GameMode,Converter={StaticResource InverseBooleanConverter}}" SeparatorVisibility="None"
+                  HorizontalOptions="Center" VerticalOptions="Center" Margin="0,80,0,0">
+            <ListView.Header>
+                <Label Text="LeaderBoard"  FontSize="50" VerticalOptions="Center" FontAttributes="Bold"
+        HorizontalOptions="Center" Margin="0,0,0,40"  TextColor="#484248"/>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="30">
+                        <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Center" Spacing="0" >
+                            <Label Text="{Binding Name}" FontSize="35" VerticalOptions="Center" FontAttributes="Bold" LineBreakMode="TailTruncation" Margin="0,0,0,7"
+                                HorizontalOptions="Center"  TextColor="{Binding Color}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+            <ImageButton Source="whatsapp.png" 
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                 BackgroundColor="#EAF6F8"  
+                BorderColor="Transparent" BorderWidth="2" 
+                Margin="80,20,80,10" Clicked="Share_Clicked"/>
+        <ImageButton Source="home.png" 
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                 BackgroundColor="#EAF6F8"  
+                BorderColor="Transparent" BorderWidth="2" 
+                Margin="80,20,80,10" Clicked="Home_Clicked"/>
+
+        <ImageButton Source="resume.png" 
+                Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                BackgroundColor="#EAF6F8"                  
+                BorderColor="Transparent" BorderWidth="2" 
+                Margin="80,10,80,10" Clicked="Resume_Clicked" IsVisible="{Binding IsResume}"/>
+
+      
+
+
+    </Grid>
+    </AbsoluteLayout>
+
+    
+</pages:PopupPage>
